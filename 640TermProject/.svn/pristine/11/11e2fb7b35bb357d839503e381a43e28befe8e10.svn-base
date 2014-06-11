@@ -1,0 +1,55 @@
+<?php
+include_once('../backend/includes.php');
+session_start();
+?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SwiftThrift</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/united/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div class="alert alert-danger"><center><font size="4"><b>SFSU Software Engineering Project, Spring 2014. For Demonstration Only</b></font></center></div>
+	<div class="container">
+		<header id="pageHeader">
+			<div class="row">
+				<!-- Logo -->
+				<div class="col-md-4">
+					<!--<a href="/"><img src="http://i.imgur.com/YofU1sG.png" alt="SwiftThrift logo"></a> -->
+					<h1 style="font-family:Lobster; font-size:40px; color:black"><a href="index.php" style="text-decoration:none;">SwiftThrift</a></h1>
+					<p>A place to buy and sell things</p>
+				</div>
+
+				<!-- Navigation -->
+				<nav class="col-md-4">
+					<div class="btn-group">
+						<a href="index.php"><button type="button" class="btn btn-primary btn-lg navbar-btn">Browse</button></a>
+						<a href="sell.php"><button type="button" class="btn btn-primary btn-lg navbar-btn">Sell</button></a>
+						<a href="about.php"><button type="button" class="btn btn-primary btn-lg navbar-btn">About</button></a>
+						<a href="help.php"><button type="button" class="btn btn-primary btn-lg navbar-btn">Help</button></a>
+					</div>
+				</nav>
+
+				<!-- Register/login -->
+				<div class="col-md-4">
+					<br>
+					<?php
+					if(!empty($_SESSION['logged_in'])){
+						echo "<p class='pull-right' style='font-size: 20px'>Welcome {$_SESSION['user']->getFirstName()}. <a href='logout.php'>Logout?</a></p>";
+					} else {
+						echo '<p class="pull-right" style="font-size:20px;">Please <a href="login.php">Log in</a> or <a href="register.php">Register</a></p>';
+					}
+					?>
+				</div>
+			</div>
+		</header>
+		<hr>
+		<!-- Main content goes below -->
+
+

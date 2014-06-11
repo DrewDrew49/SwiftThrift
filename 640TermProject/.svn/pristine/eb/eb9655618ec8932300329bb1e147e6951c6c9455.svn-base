@@ -1,0 +1,104 @@
+<?php
+
+class ItemHandler {
+	static function getItemWithId($id){
+		if(!is_integer($id)){
+			throw new Exception('Expected integer');
+			die();
+		}
+
+		$db = new Database();
+		$result = $db->query("SELECT * FROM items WHERE id = $id")->fetch_assoc();
+
+		$item = new Item(
+			$result['id'],
+			$result['title'],
+			$result['description'],
+			$result['imgPath'],
+			$result['category'],
+			$result['postedTS'],
+			$result['updatedTS'],
+			$result['price'],
+			$result['published']
+		);
+
+		return $item;
+	}
+
+	static function getItemsForCategoryId($id){
+		if(!is_integer($id)){
+			throw new Exception('Expected integer');
+			die();
+		}
+
+		$items = array();
+
+		$db = new Database();
+		$result = $db->query("SELECT id FROM items WHERE category = $id");
+
+		while($row = $result->fetch_assoc()){
+			$items[] = self::getItemWithId((int)$row['id']);
+		}
+
+		return $items;
+	}
+
+	static function insertItem($item){
+		if(!$item instanceof Item){
+			throw new Exception('Incoming object is not an Item');
+			die();
+		}
+
+		$sql = "INSERT INTO items VALUES (
+			NULL,
+			'{$item->getTitle()}',
+			'{$item->getDescription()}',
+			'{$item->getImgPath()}',
+			{$item->getPriceAsNumber()},
+			CURRENT_TIMESTAMP(),
+			NULL,
+			{$item->getPublished()},
+			{$item->getCategory()})";
+
+		$db = new Database();
+		$result = $db->query($sql);
+
+
+
+		return $db->insert_id;
+	}
+
+	static function deleteItemWithId($id){
+		if(!is_integer($id)){
+			throw new Exception('Expected integer');
+			die();
+		}
+
+		$db = new Database();
+		$result = $db->query("DELETE FROM items WHERE id = $id LIMIT 1");
+
+		return $result;
+	}
+
+	// Admin
+	static function updateStatusForItemWithId($id, $status){
+		if(!is_integer($id)){
+			throw new Exception('Expected integer');
+			die();
+		}
+
+		$db = new Database();
+		$result = $db->query("UPDATE items SET published = {$status} WHERE id = {$id}");
+
+		return $result;
+	}
+
+	static function publishItemWithId($id){
+		return ItemHandler::updateStatusForItemWithId($id, 1);
+	}
+
+	static function unpublishItemWithId($id){
+		return ItemHandler::updateStatusForItemWithId($id, 0);
+	}
+}
+?>

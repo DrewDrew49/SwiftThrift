@@ -1,0 +1,12 @@
+<?php
+include('header.php');
+include('search.php');
+?>
+
+<h2>Help</h2>
+<p>There's no escape.</p>
+
+<?php
+include('footer.php');
+?>
+

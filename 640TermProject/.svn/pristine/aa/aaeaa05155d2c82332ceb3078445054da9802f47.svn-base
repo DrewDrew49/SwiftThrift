@@ -1,0 +1,53 @@
+<?php
+include('header.php');
+?>
+
+<p><font size="4"><a href="index.php">Back to Home</a></font></p>
+
+<h1>Sell an Item</h1>
+
+<h2>Step 1: Item Information | Step 2: Pay Fee | <mark>Step 3: Listing Confirmation</mark></h2>
+
+<div class="panel panel-default">
+	<div class="row">
+		<div class="panel-body col-sm-8">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<font size="5">Item Listing Information</font><a href="sell.php">
+						<button type="button" class="btn btn-default pull-right">Edit</button></a>
+					</div>
+					<div class="panel-body">
+						<p><b>Item Name: </b>(item name)</p>
+						<p><b>Category: </b>(category)</p>
+						<p><b>Description: </b>(description)</p>
+						<p><b>Keywords: </b>(keywords)</p>
+						<p><b>Price: </b>$ (price)</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<font size="5">Payment Information</font>
+						<a href="pay.php"><button type="button" class="btn btn-default pull-right">Edit</button></a>
+					</div>
+					<div class="panel-body">
+						<p><b>Payment method:</b> None</p>
+						<p><b>Amount due:</b> No fee</p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<a href="sell.php"><button type="button" class="btn btn-default pull-left">Back</button></a>
+				<a href="#"><button type="submit" class="btn btn-primary btn-lg pull-right">List Item</button></a>
+			</div>
+			<p class="pull-right"><b>We'll need to approve your listing before it goes on the site.</b></p>
+		</div>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

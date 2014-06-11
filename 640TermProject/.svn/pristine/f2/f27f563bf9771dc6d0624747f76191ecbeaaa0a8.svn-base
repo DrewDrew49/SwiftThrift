@@ -1,0 +1,23 @@
+<!-- End of main content -->
+<footer>
+	<!--FOR TESTING ONLY-->
+	<hr>
+	<center><p>
+		(<u>For testing only</u>) Navigation:
+		<a href="index.php">Home</a> |
+		<a href="category.php">Category</a> |
+		<a href="results.php">Results</a> ||
+		<a href="detailed.php">Detailed</a> |
+		<a href="send_message.php">Send Message</a> ||
+		<a href="sell.php">Sell</a> |
+		<a href="pay.php">Pay</a> |
+		<a href="sell_confirm.php">Sell Confirm</a> ||
+		<a href="login.php">Login</a> |
+		<a href="register.php">Register</a>
+	</p><center>
+	<!--END TESTING ONLY-->
+	<center><p><?php echo date('Y'); ?> &copy; SwiftThrift</p><center>
+</footer>
+</div>
+</body>
+</html>

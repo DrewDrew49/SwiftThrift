@@ -1,0 +1,43 @@
+#pageHeader {
+    width: 100%;
+	/* border: 1px solid black; */
+}
+
+#contactForm{
+	padding: 2em;
+}
+
+
+.category-box {
+	border: 1px solid #eee;
+	min-height: 5em;
+}
+
+.category-box>* {
+	text-align: center;
+}
+
+.row {
+	margin: 0;
+}
+
+.big-buttons {
+	width: 100%;
+}
+
+#visaCard {
+	width: 2em;
+}
+
+#search-bar {
+  margin-bottom: 2em;
+}
+
+header {
+	margin-bottom: 2em;
+}
+
+footer {
+	margin-top: 2em;
+}
+

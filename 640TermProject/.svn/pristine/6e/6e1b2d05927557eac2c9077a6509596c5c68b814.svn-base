@@ -1,0 +1,102 @@
+<?php
+include('header.php');
+include('searchbar.php');
+?>
+
+	<div class="row">
+		<!--Side Bar-->
+		<div class="col-md-2">
+			<?php include('sidebar.php'); ?>
+		</div>
+		
+		
+
+
+		<!--Left Frame-->
+		<div class="col-md-10">
+			
+
+			<!--Main Content-->
+			<div class="row">
+
+				<?php
+
+				$id = (int) @$_GET['id'];
+
+				if(empty($id)){
+					$id = 999;
+				}
+
+				if(!empty($id) && is_numeric($id) && $id != 0){
+					$category = CategoryHandler::getCategoryWithId($id);
+				} else {
+					$category = null;
+				}
+
+				$allItems = ItemHandler::getItemsForCategoryId($category['id']);
+				?>
+
+				<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.js"></script>
+
+				<div class="row"><p>
+					<div class="pull-left"><font size="4"><a href="index.php">Back to Home</a></font></div>
+					<!-- If pagination is added, the listing counter will have to change -->
+					<div class="pull-right"><font size="4">Displaying <?php echo count($allItems);?> listings</font></div>
+				</p></div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2><?php
+							if($category != null){
+								echo $category['title'];
+							} else {
+								echo "No category";
+							}
+							?></h2>
+						</div>
+
+						<div class="table-responsive">
+							<?php
+
+							if(empty($allItems)){
+								echo '<p class="lead text-center">No listings in this category yet.</p>';
+							} else {
+								echo '<table class="table">
+
+								<tr>
+									<th>Image</th>
+									<th>Item Name</th>
+									<th>Seller</th>
+									<th>Date Posted</th>
+									<th>Price</th>
+									<th>Purchase</th>
+								</tr>';
+
+								foreach($allItems as $item){
+									$seller = UserHandler::getUserWithId((int) $item->getSellerId());
+
+									echo "<tr>
+										<td><a href='detailed.php?item={$item->getId()}'><img width='140' src='{$item->getImgPath()}' alt='Image' class='img-thumbnail'></a></td>
+										<td><a href='detailed.php?item={$item->getId()}'>{$item->getTitle()}</a></td>
+										<td>{$seller->getUsername()}</td>
+										<td>{$item->getPostedTimestamp()}</td>
+										<td>{$item->getPrice()}</td>
+										<td><a href='send_message.php?item={$item->getId()}'><button type='button' class='btn btn-primary'>Buy</button></a></td>
+									</tr>";
+								}
+
+								echo '</table>';
+							}
+
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

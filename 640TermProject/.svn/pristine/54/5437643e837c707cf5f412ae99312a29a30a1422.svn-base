@@ -1,0 +1,142 @@
+<?php
+include('header.php');
+?>
+
+<?php
+
+$id = (int) @$_GET['item'];
+
+if(!empty($id) && is_numeric($id) && $id >= 1) {
+	$item = ItemHandler::getItemWithId($id);
+	$seller = UserHandler::getUserWithId((int) $item->getSellerId());
+} else {
+	$item = null;
+}
+
+?>
+
+<?php 
+if($item != null) {
+?>
+<p><font size='4'><a href='detailed.php?item=<?php echo $item->getId(); ?>'>Back to Detailed View</a></font></p>
+
+<div class='panel panel-default'>
+	<div class='panel-heading'>
+		<h2>Contact Seller</h2>
+	</div>
+
+	<div class='panel-body'>
+
+		<div class='alert alert-warning'><font size='3'>
+			<b>Notice:</b> This site does not handle any transactions. All transactions are to be negotiated between the buyer and seller.
+		</font></div>
+
+		<?php
+		if (!isset($_POST['submit'])) {
+		?>
+		<!-- Instructions for the user -->
+		<p><font size='3'><b>
+			Use the form below to contact the seller with your questions or interest to buy.
+		</b></font></p>
+
+		<form method='post' action='<?php echo $_SERVER["PHP_SELF"]."?item=".$id;?>' role='form'>
+			<!-- Message Form -->
+			<div class='form-group'>
+				<label class='col-sm-2 control-label text-right'>Item: </label>
+				<div class='col-sm-10'>
+					<p><?php echo $item->getTitle(); ?></p>
+				</div>
+			</div>
+
+			<div class='form-group'>
+				<label class='col-sm-2 control-label text-right'>Price: </label>
+				<div class='col-sm-10'>
+					<p><?php echo $item->getPrice(); ?></p>
+				</div>
+			</div>
+
+			<div class='form-group'>
+				<label class='col-sm-2 control-label text-right'>Seller: </label>
+				<div class='col-sm-10'>
+					<p><?php echo $seller->getUsername(); ?></p>
+				</div>
+			</div>
+
+			<div class='form-group'>
+				<label for='message' class='col-sm-2 control-label text-right'>Message: </label>
+				<div class='col-sm-10'>
+					<p><input type='text' name='sellerName' placeholder='From: Your E-mail'></p>
+					<p><input type='text' name='itemName' placeholder='Subject'></p>
+					<p><textarea type='message' rows='4' cols='50' name='message' maxlength='1500' placeholder='Start typing your message here.'></textarea></p>
+					<p>(1500 character limit)</p>
+					<!-- add JavaScript character counter
+					<p>(1500 characters left)</p>  -->
+				</div>
+			</div>
+
+			<div class='row'>
+				<div class='col-sm-offset-2 col-sm-6'>
+					<div class='alert alert-info'><font size='3'>
+						When you click <b>Send Message</b>, your username and e-mail will be sent along with your message.
+					</font></div>
+				</div>
+			</div>
+
+			<div class='row'>
+				<div class='col-sm-offset-2 col-sm-6'>
+					<button type='reset' class='btn btn-default pull-left'>Clear Form</button>
+					<button type='submit' name='submit' class='btn btn-primary pull-right'>Send Message</button>
+				</div>
+			</div>
+		</form>
+		<?php
+		} else {
+			/* !! Remove when log-in check is implemented !! */
+			$from = $_POST['sellerName'];
+			$subject = $_POST['itemName'];
+			$message = $_POST['message'];
+			$message = wordwrap($message, 70);
+			mail('aboldb@sfsuswe.com', $subject, $message, "From: $from\n");
+			/* !! End remove !! */
+			// ** When log-in check is implemented, uncomment code below **
+			/*
+			$from = $_SESSION['user']->getEmail();
+			$subject = "SwiftThrift - inquiry for item: " . $item->getTitle();
+			$message = "Hello, " . $seller->getUsername() . ".\n" .
+					   "Thank you for using SwiftThrift.\n\n" . 
+					   "You have received a message regarding your listing for " . $item->getTitle() . "\n" . 
+					   "<a href=detailed.php?item={$id}>Click here</a> to view this listing.\n\n" . 
+			           "From: \"" . $_SESSION['user']->getUsername() . "\" " . $_SESSION['user']->getEmail() . "\n" .
+			           "====================\n";
+			$message .= $_POST['message'];
+			$message .= "\n====================\n";
+			$message = wordwrap($message, 70);
+			mail($seller->getEmail(), $subject, $message, "From: $from\n");
+			*/
+			echo "<p class='lead text-center'>Email sent</p>";
+			
+		} ?>
+	</div>
+</div>
+
+<?php
+} else { // If an invalid item id is entered
+?>
+<p><font size='4'><a href='index.php'>Back to Home</a></font></p>
+
+<div class='panel panel-default'>
+	<div class='panel-heading'>
+		<h2>Contact Seller</h2>
+	</div>
+
+	<div class='panel-body'>
+		<p class='lead text-center'>Listing not found. Please go back and try again.</p>
+	</div>
+</div>
+<?php
+}
+?>
+
+<?php
+include('footer.php');
+?>

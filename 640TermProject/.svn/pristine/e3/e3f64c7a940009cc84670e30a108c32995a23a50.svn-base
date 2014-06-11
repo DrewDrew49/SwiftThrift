@@ -1,0 +1,97 @@
+<?php
+include_once('../backend/includes.php');
+session_start();
+?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SwiftThrift</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/united/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="js/tabs.js"></script>
+	<link rel="icon" type="image/png" href="img/swiftthrift.png" />
+</head>
+<body>
+	<div class="alert-danger">
+		<p class="lead text-center">
+			<strong>SFSU Software Engineering Project, Spring 2014. For Demonstration Only</strong>
+		</p>
+	</div>
+	<div class="container">
+		<header id="pageHeader">
+			<div class="row">
+				<!-- Logo -->
+				<div id="logo" class="col-md-4">
+					<h1><a href="index.php">SwiftThrift</a></h1>
+					<p>A place to buy and sell things</p>
+				</div>
+
+				<!-- Navigation -->
+				<nav class="col-md-4">
+					<div class="btn-group">
+						<?php
+						$currentFile = basename($_SERVER["SCRIPT_NAME"]);
+
+						// Create an empty array
+						$buttons = array();
+						// Add the buttons
+						$buttons[] = array("title" => "Browse", "file" => "index.php");
+						$buttons[] = array("title" => "Sell", "file" => "sell.php");
+						$buttons[] = array("title" => "About", "file" => "about.php");
+						$buttons[] = array("title" => "Help", "file" => "help.php");
+
+						// Loop through the buttons array
+						foreach($buttons as $button){
+							if($currentFile != $button['file']){
+								echo "<a href='{$button['file']}' class='btn btn-primary btn-lg navbar-btn'>{$button['title']}</a>";	
+							} else {
+								echo "<a href='{$button['file']}' class='btn btn-primary btn-lg navbar-btn active'>{$button['title']}</a>";
+							}
+						}
+						?>
+					</div>
+				</nav>
+
+				<!-- Register/login -->
+				<div class="col-md-4">
+					<br>
+					<?php
+					if(!empty($_SESSION['logged_in'])){
+						echo "
+						<div class='pull-right'>
+							<div class='text-center'>Welcome {$_SESSION['user']->getFirstName()} !</div>";
+						// Account
+						echo '
+							<div class="nav pull-right">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" style="font-size:20px;" data-toggle="dropdown">
+										Account <span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">';
+									//if admin show different menu
+									if($_SESSION['user']->getAdmin()){
+										echo '<li><a href="admin.php"><i class="glyphicon glyphicon-check"></i>&nbsp;&nbsp;Admin Panel</a></li>
+										      <li class="divider"></li>';
+									}
+									echo '<li><a href="account.php#posts"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;My Listings</a></li>
+										 <li><a href="account.php#info"><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Settings</a></li>
+										 <li class="divider"></li>
+										 <li><a href="logout.php"><i class="glyphicon glyphicon-log-out"></i>&nbsp;&nbsp;Log Out</a></li>
+									</ul>
+								</li>
+							</div>
+						</div>';
+					}else{
+						//Signed out state
+						echo '<p class="pull-right" style="font-size:20px;">Please <a href="login.php">Log in</a> or <a href="register.php">Register</a></p>';
+					}
+					?>
+		</div>
+	</div>
+</header>
+<hr>
+		<!-- Main content goes below -->

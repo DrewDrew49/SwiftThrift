@@ -1,0 +1,116 @@
+<?php
+include('header.php');
+?>
+
+<p><font size="4"><a href="index.php">Back to Home</a></font></p>
+
+<?php
+$showForm = true;
+
+if(!empty($_POST)){
+	// Handle incoming data
+	$showForm = false;
+
+	// Assign data
+	$title = $_POST['item_name'];
+	$description = $_POST['item_description'];
+	$price = $_POST['item_price'];
+	$keywords = $_POST['item_keywords'];
+	//$category = $_POST['item_category'];
+	$image = $_POST['item_image'];
+
+	// Check for empty input
+	if(empty($title) || empty($description) || empty($price) || empty($keywords)){
+		echo '<p class="alert alert-warning">You need to fill out all the fields. Please try again</p>';
+		$showForm = true;
+	}
+
+
+	// Try to save the item need to make keywords a col. in database for items
+	if(!$showForm){
+		$newItem = new Item(0, $title, $description, $image, 'Automobiles', $keywords, null, null, $price, true);
+		$insertedID = ItemHandler::insertItem($newItem);
+
+		if($insertedID > 0){
+			echo '<p class="alert alert-success">Thank you for listing your item!</p>';
+		} else {
+			echo '<p class="alert alert-error">Couldn\'t list item at this time. Please try again later.</p>';
+		}
+	}
+}
+
+if($showForm){
+echo '
+
+<h1>Sell an Item</h1>
+
+<h2><mark>Step 1: Item Information</mark> | Step 2: Pay Fee | Step 3: Listing Confirmation</h2>
+
+
+<div class="row">
+	<div id="item-form" class="col-md-8">
+		<form class="form-horizontal" id="item-form" name="item-form"  role="form" method="post" action="sell_test.php">
+			<div class="form-group">
+				<label for="item_name" class="col-sm-2 control-label">Item Name</label>
+				<div class="col-sm-10">
+					<input type="item_name" class="form-control" id="item_name" name ="item_name" placeholder="">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="item_category" name = "item_category" class="col-sm-2 control-label">Category</label>
+				<div class="col-sm-10">
+					<select class="btn btn-primary btn-med">
+						<option>--- Choose a category ---</option>
+					    <option>Housing</option>
+					    <option>Automobiles</option>
+					    <option>Electronics</option>
+					    <option>Sporting/Outdoors</option>
+					    <option>Clothing/Accessories</option>
+					    <option>Furniture</option>
+					    <option>Home & Garden</option>
+					    <option>Movies & Music</option>
+					    <option>Miscellaneous/other</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="item_description" class="col-sm-2 control-label">Description</label>
+				<div class="col-sm-10">
+					<input type="item_description" class="form-control" id="item_description" name = "item_description" placeholder="">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="item_keywords" class="col-sm-2 control-label">Keywords</label>
+				<div class="col-sm-10">
+					<input type="item_keywords" class="form-control" id="item_keywords" name = "item_keywords" placeholder="lenovo, laptop, quad-core, i7, blu ray">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="item_price" class="col-sm-2 control-label">Price</label>
+				<div class="col-sm-10">
+					<input type="item_price" class="form-control" id="item_price" name = "item_price" placeholder="$x.xx">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="item_image" class="col-sm-2 control-label">Image</label>
+				<div class="col-sm-10">
+					<input required="" type="file" id="item_image" name="item_image" class="form-control">
+				</div>
+			</div>	
+			
+			<button type="submit" class="btn btn-primary pull-right">Submit</button>
+		</form>
+		<!-- Form goes here -->
+	</div>
+</div>';
+}
+?>
+
+<?php
+include('footer.php')
+?>

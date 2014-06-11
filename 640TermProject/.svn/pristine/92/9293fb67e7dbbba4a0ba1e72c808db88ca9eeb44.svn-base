@@ -1,0 +1,21 @@
+<?php
+include('header.php');
+?>
+<?php
+include('searchbar.php');
+?>
+
+<h4><a href='index.php'>&laquo; Back to Home</a></h4>
+
+<h2>About</h2>
+
+<h1>This site is for demonstration purposes only</h1>
+
+<!--placeholder, we'll put picture of us or something and all our names with our roles -->
+<p>Created by: Nick Ottrando, Even Holthe, Kason Soohoo, Adrian Pardillo, Sarah Yan, Ari Boldbaatar</p>
+
+<h4><a href="help.php#contact">&#9658; Contact Us</a></h4>
+
+<?php
+include('footer.php');
+?>

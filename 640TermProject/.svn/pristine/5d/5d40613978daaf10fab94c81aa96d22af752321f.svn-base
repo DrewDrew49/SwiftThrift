@@ -1,0 +1,72 @@
+<?php
+include('header.php');
+?>
+<script src="js/publish.js"></script>
+
+<?php
+if(empty($_SESSION['logged_in'])){
+	echo '<meta http-equiv="refresh" content="0;url=login.php?r=admin.php" />';
+	exit();
+} elseif(!$_SESSION['user']->getAdmin()) {
+	echo "<h1>Access denied</h1>";
+	echo "<p>You do not have access to this area.</p>";
+} else {
+
+
+	echo "<div class='table-responsive'>";	
+	$allItems = ItemHandler::getAllItems();
+		//this returns all items from database, can make it so it only returns unpublished ones instead to make admins able to quickly publish them, although they should
+		//have ability to unpublish any item as well. Publish button doesn't do anything yet but it will set the item's published value to true.
+
+	if(empty($allItems)){
+		echo '<p class="lead text-center">No listings';
+	} else {
+		echo '<table class="table">
+
+		<tr>
+		<th>Image</th>
+		<th>Item Name</th>
+		<th>Quantity</th>
+		<th>Description</th>
+		<th>Seller</th>
+		<th>Price</th>
+		<th>Status</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		</tr>';
+
+		/*-- published status, 1 for yes, 0 for no, echo result in table data--*/
+		foreach($allItems as $item){
+			echo "<tr>
+			<td><img width='128' src='{$item['imgPath']}' alt='Image' class='img-thumbnail'></td>
+			<td>{$item['title']}</td>
+			<td>1</td>
+			<td>{$item['description']}</td>
+			<td>Mr. Lazy Programmer</td>
+			<td>{$item['price']}</td>
+			<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>";
+			if($item['published'] == 1){
+				echo "
+				<td><button type='button' id='{$item['id']}' class='btn btn-success active'><i class='glyphicon glyphicon-ok'></i></button></td>
+				<td><button type='button' id='{$item['id']}' class='btn btn-warning'><i class='glyphicon glyphicon-remove'></i></button></td>
+				";
+			} else {
+				echo "
+				<td><button type='button' id='{$item['id']}' class='btn btn-success'><i class='glyphicon glyphicon-ok'></i></button></td>
+				<td><button type='button' id='{$item['id']}' class='btn btn-warning active'><i class='glyphicon glyphicon-remove'></i></button></td>
+				";
+			}
+			echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>";
+			echo "</tr>";
+		}
+
+		echo '</table> </div>';
+	}
+
+}
+?>
+
+<?php
+include('footer.php');
+?>

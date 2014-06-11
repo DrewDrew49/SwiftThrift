@@ -1,0 +1,40 @@
+<?php
+// Calls ItemHandler class to handle item publication status using the POST data from button
+include_once('backend/includes.php');
+
+if (isset($_POST['publish_id'])) {
+	$data = intval($_POST['publish_id']);
+	$status = ItemHandler::publishItemWithId($data);
+
+	// If successfully published
+	if($status){
+		Utils::emailListingApproved((int)$_POST['publish_id']);
+	}
+
+	return $status;
+} elseif (isset($_POST['deny_id'])) {
+	$data = intval($_POST['deny_id']);
+	return ItemHandler::unpublishItemWithId($data);
+} elseif (isset($_POST['delete_id'])) {
+	$data = intval($_POST['delete_id']);	
+	$status = ItemHandler::deleteItemWithId($data);
+
+	//if successfully deleted
+	//I don't think this is working because the item is being deleted before the email can send
+	if($status){
+		Utils::emailListingDenied((int)$_POST['delete_id']);
+	}
+
+	return $status;
+} elseif (isset($_POST['user_id'])) {
+	$data = intval($_POST['user_id']);
+	return UserHandler::deleteUserWithId($data);
+} elseif (isset($_POST['admin_id'])) {
+	$data = intval($_POST['admin_id']);
+	return UserHandler::makeAdmin($data);
+} else {
+
+	return 1;
+}
+
+?>

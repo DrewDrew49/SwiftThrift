@@ -1,0 +1,16 @@
+<?php
+include('header.php');
+
+
+if(!empty($_SESSION['logged_in'])){
+	session_destroy();
+	echo '<p class="alert alert-success">You have been logged out! You\'ll be redirected in 5 seconds.</p>';
+	echo '<meta http-equiv="refresh" content="5;url=index.php" />';
+} else {
+	echo '<p class="alert alert-danger">You are not logged in, so we can\'t log you out.</p>';
+	echo '<meta http-equiv="refresh" content="5;url=index.php" />';
+}
+
+
+include('footer.php');
+?>

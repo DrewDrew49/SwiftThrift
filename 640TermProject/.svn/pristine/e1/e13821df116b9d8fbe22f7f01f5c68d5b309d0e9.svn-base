@@ -1,0 +1,17 @@
+<?php
+include('header.php');
+?>
+<?php
+include('searchbar.php');
+?>
+
+<h2>About</h2>
+
+<h1>This site is for demonstration purposes only</h1>
+
+<!--placeholder, we'll put picture of us or something and all our names with our roles -->
+<p>Created by: Nick Ottrando, Even Holthe, Kason Soohoo, Adrian Pardillo, Sarah Yan, Ari Boldbaatar</p>
+
+<?php
+include('footer.php');
+?>

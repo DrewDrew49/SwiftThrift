@@ -1,0 +1,47 @@
+<?php
+include('header.php');
+?>
+
+<p><font size="4"><a href="detailed.php">Back to Detailed View</a></font></p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2>Send a Message</h2>
+	</div>
+
+	<div class="panel-body">
+	<form class="form-horizontal" role="form">
+		<!-- best to make this a form? -->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Item: </label>
+			<div class="col-sm-10">
+				(Item Name)
+				<!-- $item.name -->
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Seller: </label>
+			<div class="col-sm-10">
+				(Username)
+				<!-- $seller.name -->
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Message: </label>
+			<div class="col-sm-10">
+				<textarea rows="4" cols="50"></textarea>
+				<br/>(#### characters remain)
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-5">
+				<a href="#"><button type="submit" class="btn btn-primary pull-right">Send</button></a>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

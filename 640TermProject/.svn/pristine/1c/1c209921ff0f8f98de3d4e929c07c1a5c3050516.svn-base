@@ -1,0 +1,53 @@
+<?php
+include('header.php');
+?>
+
+<style type="text/css" media="screen">
+	#sidebar{
+		margin-left: -30px;
+		border-right: 1px;
+		border-color: black;
+	}
+
+</style>
+
+</style>
+
+<div class="container">
+
+	<!--Side Bar-->
+	<div class="row">
+		<div class="col-sm-2">
+			<ul id="sidebar" class="nav nav-stacked ">
+				<li><a href="#">Housing</a></li>
+				<li><a href="#">Automobiles</a></li>
+				<li><a href="#">Electronics</a></li>
+				<li><a href="#">Clothing & Accessories</a></li>
+				<li><a href="#">Furniture</a></li>
+				<li><a href="#">Home & Garden</a></li>
+				<li><a href="#">Movies & Music</a></li>
+				<li><a href="#">Miscellaneous</a></li>
+			</ul>
+		</div>
+
+
+		<!--Content -->
+		<div class="col-sm-10" style="margin-left: -10px">
+
+			<div class="row">
+				<?php
+				include('search.php');
+				?>
+			</div>
+			<div class="row">
+				<?php
+				include('browse.php');
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

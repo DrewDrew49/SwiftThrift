@@ -1,0 +1,112 @@
+<?php
+include('header.php');
+?>
+<?php
+include('search.php');
+?>
+
+
+<?php
+if(!empty($_POST)){
+	echo "<pre>";
+	var_dump($_POST);
+	echo "</pre>";
+}
+?>
+<h1>Result Page</h1>
+
+
+<div class="row">
+	<div class="category-box col-md-4">
+
+		<h4>Image here</h4>
+		<img data-src="holder.js/200x200" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+
+
+	</div>
+
+	<div class="category-box col-md-4">
+
+
+		<h4>Item's name</h4>
+
+		<h4>Item's price</h4>
+		<p>
+			<button type="button" class="btn btn-default">Buy</button>
+		</p>
+
+	</div>
+
+
+
+	<div class="category-box col-md-4">
+
+
+		<h4>Short preview of description</h4>
+
+
+
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Item's 1 pic</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Item's 1</h2></a>
+		<a href="#"><h2>$10</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Pen</h2></a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+	<div class="category-box col-md-4 ">
+		<a href="#"><h2>Category X</h2></a>
+	</div>
+</div>
+
+
+
+
+<?php
+include("footer.php");
+?>

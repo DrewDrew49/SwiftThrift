@@ -1,0 +1,91 @@
+<?php
+include('header.php');
+?>
+
+<div class='row'>
+	<!--Side Bar-->
+	<div class="col-md-2">
+		<?php include('sidebar.php'); ?>
+	</div>
+	
+	<!--Left Frame-->
+	<div class='col-sm-10' style='margin-left: -10px'>
+		<!--search bar-->
+		<div class='row'>
+			<?php include('searchbar.php'); ?>
+		</div>
+
+		<!--Main Content-->
+		<div class='row'>
+
+			<?php
+			$id = (int) @$_GET['item'];
+
+			if(!empty($id) && is_numeric($id) && $id >= 1) {
+				$item = ItemHandler::getItemWithId($id);
+				$seller = UserHandler::getUserWithId((int) $item->getSellerId());
+			} else {
+				$item = null;
+			}
+			?>
+
+			<script src='//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.js'></script>
+
+			<!-- Need to change to return to results.php when search is used -->
+			<p><font size='4'><a href='category.php?id=<?php echo $item->getCategory(); ?>'>Back to Listings</a></font></p>
+
+			<?php
+			if($item != null) {
+				echo "
+				<div class='panel panel-default'>
+					<div class='panel-heading'>
+						<p><font size='6'>{$item->getTitle()}</font></p>
+					</div>
+
+					<div class='panel-body'>
+						<table class='table'>
+							<div class='row'>
+								<div class='col-md-3'>
+									<a href='http://sfsuswe.com/~s14g01/prototype/{$item->getImgPath()}' target='_blank'>
+									<h3><img width='200' src='http://sfsuswe.com/~s14g01/prototype/{$item->getImgPath()}' alt='No Image'></h3>
+									<p class='text-center'>Click to view full image</p></a>
+								</div>
+
+								<div class='col-md-9'>
+									<p><font size='4'><b>Seller: </b>{$seller->getUsername()}</font></p>
+									<p><font size='4'><b>Date Posted: </b>{$item->getPostedTimestamp()}</font></p>
+									<p><font size='5'>{$item->getPrice()}</font></p>
+									<p><a href='send_message.php?item={$item->getId()}'><button type='button' class='btn btn-primary btn-lg'>Contact Seller to Buy</button></a></p>
+								</div>
+							</div>
+
+							<tr><td>
+								<p><font size='4'><b>Keywords:</b></font> {$item->getKeywords()}</p>
+							</td></tr>
+
+							<tr><td>
+								<p><font size='4'><b>Item Description:</b></font></p>
+								<p>{$item->getDescription()}</p>
+							</td></tr>
+						</table>
+					</div>
+				</div>
+				";
+			} else { // If an invalid item id is entered
+				echo "
+				<div class='panel panel-default'>
+					<div class='panel-heading'>
+						<p class='lead text-center'>Listing not found. Please go back and try again.</p>
+					</div>
+				</div>
+				";
+			}
+			?>
+
+		</div>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

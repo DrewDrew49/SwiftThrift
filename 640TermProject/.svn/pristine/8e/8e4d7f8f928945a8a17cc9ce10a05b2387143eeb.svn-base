@@ -1,0 +1,58 @@
+<?php
+include('header.php');
+?>
+<script src="js/publish.js"></script>
+<?php
+	if(!empty($_SESSION['logged_in'])){
+		echo "<h1>Welcome {$_SESSION['user']->getFirstName()}!</h1>";
+
+
+		//gets user's items, displays them and lets user know if it's published or not, gives them option to delete listing,
+		//not sure if delete button will work when this goes live. 
+
+		$userItems = ItemHandler::getItemsForSellerId($_SESSION['user']->getId());
+		$numItems = count($userItems);
+
+		echo "<p>You currently have {$numItems} item(s) listed, here they are!</p>";
+
+		echo "<div class='table-responsive'>";
+
+		if(empty($userItems)){
+			echo '<p class="lead text-center">No listings</p>';
+		} else {
+			echo '<table class="table">
+
+			<tr>
+			<th>Image</th>
+			<th>Item Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Date Posted</th>
+			<th>Status</th>
+			<th></th>
+			</tr>';
+
+			/*-- published status, 1 for yes, 0 for no, echo result in table data--*/
+			foreach($userItems as $item){
+
+				echo "<tr>
+				<td><img width='128' src='{$item['imgPath']}' alt='Image' class='img-thumbnail'></td>
+				<td>{$item['title']}</td>
+				<td>{$item['description']}</td>
+				<td>{$item['price']}</td>
+				<td>{$item['postedTS']}</td>
+				<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>";
+				echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>";
+				echo "</tr>";
+			}
+
+			echo '</table> </div>';
+		}
+
+	}
+
+?>
+
+<?php
+include('footer.php')
+?>

@@ -1,0 +1,85 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+#pageHeader {
+	width: 100%;
+	/* border: 1px solid black; */
+}
+
+#logo h1 {
+	font-family: Lobster;
+	font-size: 40px;
+	color: black;
+}
+
+#logo h1>a {
+	text-decoration: none;
+}
+
+#contactForm{
+	padding: 2em;
+}
+
+
+.category-box {
+	border: 1px solid #eee;
+	min-height: 5em;
+	padding: 0;
+}
+
+.category-box>* {
+	text-align: center;
+	font-size: 24px;
+}
+
+.row {
+	margin: 0;
+}
+
+.tab-content > .tab-pane > ul {
+	padding: 0;
+}
+
+.big-buttons {
+	width: 100%;
+}
+
+#ccInfo .dt {
+	padding-left: 0;
+}
+
+#ccInfo .dt.pull-right {
+	padding-right: 0;
+}
+
+#visaCard {
+	width: 2em;
+}
+
+#search-bar {
+	margin-bottom: 2em;
+}
+
+header {
+	margin-bottom: 2em;
+}
+
+footer {
+	margin-top: 2em;
+}
+
+textarea {
+	resize: none;
+	min-height: 140px;
+}
+
+img.category{
+	width:64px;
+	height: 64px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.get-started{
+	font-size: large;
+}

@@ -1,0 +1,24 @@
+<?php
+class Search {
+	static function getAllAvailableKeywords(){
+		// A new array to contain all our keywords
+		$keywords = array();
+
+		// Connect and run a query
+		$db = new Database();
+		$result = $db->query("SELECT keywords FROM items");
+
+		// Loop through all keywords, split and trim them
+		while($row = $result->fetch_assoc()){
+			$splitted = explode(',', $row['keywords']);
+			foreach($splitted as $kw){
+				$keywords[] = trim($kw);
+			}
+		}
+
+		// Return the unique keywords
+		return array_unique($keywords);
+	}
+}
+
+?>

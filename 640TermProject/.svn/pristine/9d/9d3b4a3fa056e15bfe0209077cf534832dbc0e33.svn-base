@@ -1,0 +1,12 @@
+<?php
+
+class Utils {
+	private static $salt1 = "SwiftThrift@SFSU";
+	private static $salt2 = "Egyux0Cz917FqsVGRzyMHORs6kNxoZEDvRYDzA3UgQDwS7MRgThrhIL6KkxbkQCVjidwbjivDSzFTmB1";
+
+	static function saltAndHash($plaintext){
+		return sha1(self::$salt1.base64_encode($plaintext.self::$salt2).self::$salt2);
+	}
+}
+
+?>

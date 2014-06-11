@@ -1,0 +1,39 @@
+/*
+	Match button class to send POST request with the id of item to publish.php
+	If the script succeeds, change the table data field of status to 'Published' or
+	'Unpublished on the fly'.
+
+	- Ari 
+*/
+$(function(){
+	$(".btn.btn-success").click(function(){
+		var the_id = $(this).attr("id");
+		var that = this;
+		$.ajax({
+			url:  "../publish.php",
+			type: "POST",
+			data: {publish_id: the_id},
+			success: function(result){
+				$(that).closest("td").prev().html("Published");
+			},
+			error: function(result){
+				console.log(result);
+			}
+		});
+	});
+	$(".btn.btn-danger").click(function(){
+		var the_id = $(this).attr("id");
+		var that = this;
+		$.ajax({
+			url: "../publish.php",
+			type: "POST",
+			data: {deny_id: the_id},
+			success: function(result){
+				$(that).closest("td").prev().prev().html("Unpublished");
+			},
+			error: function(result){
+				console.log(result);
+			}
+		});
+	});
+});

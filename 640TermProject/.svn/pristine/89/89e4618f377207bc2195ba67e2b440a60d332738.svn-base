@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	$("#tabs a").click(function(e){
+		$(this).tab('show');
+	});
+});
+
+$(document).ready(function() {
+var hash = window.location.hash;
+hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+});

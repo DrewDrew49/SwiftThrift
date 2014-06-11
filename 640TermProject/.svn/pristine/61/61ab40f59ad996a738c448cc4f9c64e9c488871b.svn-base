@@ -1,0 +1,71 @@
+<?php
+include('header.php');
+?>
+<script src="js/publish.js"></script>
+<?php
+	if(empty($_SESSION['logged_in'])) {
+		echo "<meta http-equiv='refresh' content='0;url=login.php?r=account.php'/>";
+		exit();
+	} else {
+		echo "<h4><a href='index.php'>&laquo; Back to Home</a></h4>";
+
+		echo "<h1>Welcome {$_SESSION['user']->getFirstName()}!</h1>";
+
+		//gets user's items, displays them and lets user know if it's published or not, gives them option to delete listing,
+		//not sure if delete button will work when this goes live. 
+
+		$userItems = ItemHandler::getItemsForSellerId($_SESSION['user']->getId());
+		$numItems = count($userItems);
+
+		if($numItems > 0){
+			echo "<p>You currently have {$numItems} item(s) listed, here they are!</p>";
+		}
+		
+
+		echo "<div class='table-responsive'>";
+
+		if(empty($userItems)){
+			echo '<p class="lead text-center">You currently have no items listed</p>';
+		} else {
+			echo '<table class="table">
+
+			<tr>
+			<th>Image</th>
+			<th>Item Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Date Posted</th>
+			<th>Status</th>
+			<th></th>
+			</tr>';
+
+			/*-- published status, 1 for yes, 0 for no, echo result in table data--*/
+			//why can't we call getters on items here?
+			foreach($userItems as $item){
+
+				$shortDescription = substr($item['description'], 0, 200);
+					if(strlen($item['description']) > 200){
+						$shortDescription .= "..." . "<a href='detailed.php?item={$item['id']}'> Read More</a>";
+				}
+
+				echo "<tr>
+				<td><a href='detailed.php?item={$item['id']}'><img width='140' src='{$item['imgPath']}'' alt='Image' class='img-thumbnail' /></a></td>
+				<td><a href='detailed.php?item={$item['id']}'>{$item['title']}</a></td>
+				<td>$shortDescription</td>
+				<td>{$item['price']}</td>
+				<td>{$item['postedTS']}</td>
+				<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>";
+				echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>";
+				echo "</tr>";
+			}
+
+			echo '</table> </div>';
+		}
+
+	}
+
+?>
+
+<?php
+include('footer.php')
+?>

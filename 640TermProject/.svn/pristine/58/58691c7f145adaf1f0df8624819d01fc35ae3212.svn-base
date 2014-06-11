@@ -1,0 +1,45 @@
+<?php
+include('header.php');
+?>
+<?php
+include('search.php');
+?>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.js"></script>
+
+<p><font size="4"><a href="category.php">Back to Listings</a></font></p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<p><font size="6">(Item Name)</font></p>
+	</div>
+	
+	<div class="panel-body">
+		<table class="table">
+			<div class="row">
+				<div class="col-md-3 ">
+					<h3><img data-src="holder.js/200x200" class="img-thumbnail" alt="No Image"></h3>
+				</div>
+				
+				<div class="col-md-9 ">
+					<p><font size="4">Seller: (Username)</font></p>
+					<p><font size="5">$(Item Price) </font></p>
+					<p><a href="send_message.php"><button type="button" class="btn btn-primary btn-lg">Buy</button></a></p>
+				</div>
+			</div>
+			
+			<tr><td>
+				<p><font size="4"><b>Keywords:</b></font> (keyword1, keyword2, ...)</p>
+			</td></tr>
+			
+			<tr><td>
+				<p><font size="4"><b>Item Description:</b></font></p>
+				<p><!-- insert description--> (blah, blah)</p>
+			</td></tr>
+		</table>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

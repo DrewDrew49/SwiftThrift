@@ -1,0 +1,52 @@
+<?php
+include('header.php');
+?>
+<script src="js/publish.js"></script>
+<div class="table-responsive">
+		<?php
+		$allItems = ItemHandler::getAllItems();
+		//this returns all items from database, can make it so it only returns unpublished ones instead to make admins able to quickly publish them, although they should
+		//have ability to unpublish any item as well. Publish button doesn't do anything yet but it will set the item's published value to true.
+
+		if(empty($allItems)){
+			echo '<p class="lead text-center">No listings';
+		} else {
+			echo '<table class="table">
+
+			<tr>
+			<th>Image</th>
+			<th>Item Name</th>
+			<th>Quantity</th>
+			<th>Description</th>
+			<th>Seller</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th></th>
+			<th></th>
+			</tr>';
+
+			/*-- published status, 1 for yes, 0 for no, echo result in table data--*/
+			foreach($allItems as $item){
+				echo "<tr>
+				<td><img width='128' src='http://sfsuswe.com/~s14g01/prototype/{$item['imgPath']}' alt='Image' class='img-thumbnail'></td>
+				<td>{$item['title']}</td>
+				<td>1</td>
+				<td>{$item['description']}</td>
+				<td>Mr. Lazy Programmer</td>
+				<td>{$item['price']}</td>
+				<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>
+				<td><a href=''><button type='button' id='{$item['id']}' class='btn btn-success'>Approve</button></a></td>
+				<td><a href=''><button type='button' id='{$item['id']}' class='btn btn-danger'>Deny</button></a></td>
+				</tr>";
+			}
+
+			echo '</table>';
+		}
+
+		?>
+
+</div>
+
+<?php
+include('footer.php');
+?>

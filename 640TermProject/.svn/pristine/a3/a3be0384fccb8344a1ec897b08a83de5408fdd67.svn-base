@@ -1,0 +1,22 @@
+$(document).ready(function(){
+	$("#tabs a").click(function(e){
+		$(this).tab('show');
+	});
+
+	$('#myinfo').click(function() {
+		$('#tabs a[href="#info"]').tab('show');
+	});
+
+	$('#myposts').click(function() {
+		$('#tabs a[href="#posts"]').tab('show');
+	});
+
+	$('#refresh').click(function() {
+		window.location = window.location.pathname;
+	});
+});
+
+$(document).ready(function() {
+	var hash = window.location.hash;
+	hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+});

@@ -1,0 +1,184 @@
+<?php
+include('header.php');
+?>
+<script src="js/publish.js"></script>
+
+<?php
+if(empty($_SESSION['logged_in'])){
+	echo '<meta http-equiv="refresh" content="0;url=login.php?r=admin.php" />';
+	exit();
+} elseif(!$_SESSION['user']->getAdmin()) {
+	echo "<h1>Access denied</h1>";
+	echo "<p>You do not have access to this area.</p>";
+} else {
+	echo '
+	<ul class="nav nav-tabs" id="tabs">
+  		<li class="active"><a href="#posts" data-toggle="tab">All Listings</a></li>
+  		<li><a href="#unpublishedPosts" data-toggle="tab">Unpublished Listings</a></li>
+  		<li><a href="#users" data-toggle="tab">Users</a></li>		
+	</ul>
+	<!-- begin posts tab -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="posts">
+        <ul>';
+        echo "<div class='table-responsive'>";	
+		$allItems = ItemHandler::getAllItems();
+		//this returns all items from database, use unpublished items tab to just see unpublished ones for quick approving.
+
+		if(empty($allItems)){
+			echo '<p class="lead text-center">No listings</p>';
+		} else {
+			echo '<table class="table">
+
+		<tr>
+		<th>Image</th>
+		<th>Item Name</th>
+		<th>Description</th>
+		<th>Keywords</th>
+		<th>Seller</th>
+		<th>Price</th>
+		<th>Date Posted</th>
+		<th>Status</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		</tr>';
+
+		/*-- published status, 1 for yes, 0 for no, echo result in table data--*/
+		foreach($allItems as $item){
+			$seller = UserHandler::getUserWithId((int) $item['sellerId'])->getUsername();
+
+			echo "<tr>
+			<td><img width='128' src='{$item['imgPath']}' alt='Image' class='img-thumbnail'></td>
+			<td>{$item['title']}</td>
+			<td>{$item['description']}</td>
+			<td>{$item['keywords']}</td>
+			<td>$seller</td>
+			<td>{$item['price']}</td>
+			<td>{$item['postedTS']}</td>
+			<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>";
+			if($item['published'] == 1){
+				echo "
+				<td><button type='button' id='{$item['id']}' class='btn btn-success active'><i class='glyphicon glyphicon-ok'></i></button></td>
+				<td><button type='button' id='{$item['id']}' class='btn btn-warning'><i class='glyphicon glyphicon-remove'></i></button></td>
+				";
+			} else {
+				echo "
+				<td><button type='button' id='{$item['id']}' class='btn btn-success'><i class='glyphicon glyphicon-ok'></i></button></td>
+				<td><button type='button' id='{$item['id']}' class='btn btn-warning active'><i class='glyphicon glyphicon-remove'></i></button></td>
+				";
+			}
+			echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>";
+			echo "</tr>";
+		}
+
+		echo '</table> </div>
+		 <!-- end posts tab here -->
+        
+		
+       		</ul>
+      </div>
+      <!-- begin unpublished tab -->
+      <div class = "tab-pane" id="unpublishedPosts">
+      	<ul>
+			<div class="table-responsive">';
+				$unlistedItems = ItemHandler::getAllUnpublishedItems();
+
+				if (empty($unlistedItems)){
+					echo '<p class="lead text-center">No unlisted items at this time!</p>';
+				} else {
+					echo '<table class="table">
+
+					<tr>
+					<th>Image</th>
+					<th>Item Name</th>
+					<th>Description</th>
+					<th>Keywords</th>
+					<th>Seller</th>
+					<th>Price</th>
+					<th>Date Posted</th>
+					<th>Status</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					</tr>';
+
+					foreach($unlistedItems as $item){
+					$seller = UserHandler::getUserWithId((int) $item['sellerId'])->getUsername();
+
+					echo "<tr>
+						<td><img width='128' src='{$item['imgPath']}' alt='Image' class='img-thumbnail'></td>
+						<td>{$item['title']}</td>
+						<td>{$item['description']}</td>
+						<td>{$item['keywords']}</td>
+						<td>$seller</td>
+						<td>{$item['price']}</td>
+						<td>{$item['postedTS']}</td>
+						<td>". ( ($item['published'] == 1) ? "Published" : "Unpublished" ) ."</td>";
+						if($item['published'] == 1){
+							echo "
+							<td><button type='button' id='{$item['id']}' class='btn btn-success active'><i class='glyphicon glyphicon-ok'></i></button></td>
+							<td><button type='button' id='{$item['id']}' class='btn btn-warning'><i class='glyphicon glyphicon-remove'></i></button></td>
+							";
+						} else {
+							echo "
+							<td><button type='button' id='{$item['id']}' class='btn btn-success'><i class='glyphicon glyphicon-ok'></i></button></td>
+							<td><button type='button' id='{$item['id']}' class='btn btn-warning active'><i class='glyphicon glyphicon-remove'></i></button></td>
+							";
+						}
+					echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>";
+					echo "</tr>";
+					}
+					echo '</table>';
+				}
+
+			echo '</div>
+        </ul>
+      	
+      </div>
+      <!-- begin users tab -->
+      <div class="tab-pane" id="users">
+        <ul>
+			<div class="table-responsive">';
+				$allUsers = UserHandler::getAllUsers();
+
+				if (empty($allUsers)){
+					echo '<p class="lead text-center">No users</p>';
+				} else {
+					echo '<table class="table">
+						<tr>
+						<th>ID</th>
+						<th>First name</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th></th>
+						</tr>';
+
+					foreach($allUsers as $user){
+						echo "<tr>
+							<td>{$user['id']}</td>
+							<td>{$user['firstname']}</td>
+							<td>{$user['username']}</td>
+							<td>{$user['email']}</td>";
+						if ($user['admin']) {
+							echo "<td>Admin</td>
+							</tr>";
+						} else {
+							echo "<td><button type='button' id='{$item['id']}' class='btn btn-danger'>Delete</button></td>
+							</tr>";
+						}
+					}
+					echo '</table>';
+				}
+
+			echo '</div>
+        </ul>
+      </div>';
+    	// end users tab
+}
+}
+?>
+
+<?php
+include('footer.php');
+?>

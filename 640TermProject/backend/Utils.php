@@ -1,0 +1,102 @@
+<?php
+
+class Utils {
+	private static $salt1 = "SwiftThrift@SFSU";
+	private static $salt2 = "Egyux0Cz917FqsVGRzyMHORs6kNxoZEDvRYDzA3UgQDwS7MRgThrhIL6KkxbkQCVjidwbjivDSzFTmB1";
+
+	static function saltAndHash($plaintext){
+		return sha1(self::$salt1.base64_encode($plaintext.self::$salt2).self::$salt2);
+	}
+
+	static function handleImage($imageUpload){
+		// Check for errors on file upload
+		if($imageUpload["inputFile"]["error"] == 0){
+
+			// Local variables for the image
+			$tmpFilename = $imageUpload["inputFile"]["tmp_name"];
+			$filename = $imageUpload["inputFile"]["name"];
+			$size = $imageUpload["inputFile"]["size"];
+			$hash = sha1($size+$filename+time());
+			$path = "images/$hash-$filename";
+
+			if(file_exists($path)){
+				// The file already exists
+				return false;
+			} else {
+				if(!move_uploaded_file($tmpFilename, $path)){
+					// Moving of file failed
+					return false;
+				}
+			}
+		} else {
+			// The image upload failed, return
+			return false;
+		}
+
+		if(empty($tmpFilename)){
+			// Something went wrong above
+			return false;
+		}
+
+		return $path;
+	}
+
+	static function emailListingApproved($itemId){
+		$item = ItemHandler::getItemWithId($itemId);
+		$seller = UserHandler::getUserWithId((int)$item->getSellerId());
+		$to = $seller->getEmail();
+
+		$from = "swiftthrift-noreply@sfsuswe.com";
+		$subject = "SwiftThrift - Listing approved: {$item->getTitle()}";
+
+		$message = "Hello, {$seller->getUsername()}\n";
+		$message .= "Thank you for using SwiftThrift.\n\n";
+		$message .= "Your listing has been approved and can be viewed by copying and pasting the following address:\n";
+		$message .= "http://sfsuswe.com/~s14g01/detailed.php?item={$item->getId()}\n\n";
+		$message .= "If you have any questions or concerns, please contact us using the form here:\n";
+		$message .= "http://sfsuswe.com/~s14g01/help.php#contact\n\n";
+		$message .= "- The SwiftThrift Team";
+		
+		mail($to, $subject, $message, "From: $from\n");
+	}
+
+	static function emailListingDenied($itemName, $sellerId){
+		$seller = UserHandler::getUserWithId((int)$sellerId);
+		$to = $seller->getEmail();
+
+		$from = "swiftthrift-noreply@sfsuswe.com";
+		$subject = "SwiftThrift - Listing denied: {$itemName}";
+
+		$message = "Hello, {$seller->getUsername()}\n";
+		$message .= "Thank you for using SwiftThrift.\n\n";
+		$message .= "Your listing has been denied for one of the following reasons:\n";
+		$message .= "It is spam.\n";
+		$message .= "It contains inappropriate media/content.\n";
+		$message .= "It contains irrelevant keywords.\n";
+		$message .= "It does not belong in the selected category.\n\n";
+		$message .= "If you have any questions or concerns, please contact us using the form here:\n";
+		$message .= "http://sfsuswe.com/~s14g01/help.php#contact\n\n";
+		$message .= "- The SwiftThrift Team";
+		
+		mail($to, $subject, $message, "From: $from\n");
+	}
+
+	static function emailListingDeleted($itemName, $sellerId){
+		$seller = UserHandler::getUserWithId((int)$sellerId);
+		$to = $seller->getEmail();
+
+		$from = "swiftthrift-noreply@sfsuswe.com";
+		$subject = "SwiftThrift - Listing deleted: {$itemName}";
+
+		$message = "Hello, {$seller->getUsername()}\n";
+		$message .= "Thank you for using SwiftThrift.\n\n";
+		$message .= "We just wanted to let you know that we've deleted '{$itemName}' at your request.\n\n";
+		$message .= "If you have any questions or concerns, please contact us using the form here:\n";
+		$message .= "http://sfsuswe.com/~s14g01/help.php#contact\n\n";
+		$message .= "- The SwiftThrift Team";
+		
+		mail($to, $subject, $message, "From: $from\n");
+	}
+}
+
+?>

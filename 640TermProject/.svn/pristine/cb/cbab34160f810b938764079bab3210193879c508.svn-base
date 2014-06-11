@@ -1,0 +1,131 @@
+<?php
+include('header.php');
+include('searchbar.php');
+?>
+
+<h4><a href='index.php'>&laquo; Back to Home</a></h4>
+
+<h1>About Us</h1>
+
+<h3>This demonstration site was created by:</h3>
+
+<table class="table">
+
+	<tr>
+		<td>
+			<strong class="names">Nick Ottrando</strong><br>
+			<img src="img/nick.jpg" class="img-circle img-responsive" alt="Nick Ottrando" height="140" width="140">
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Project Manager, Back-end, Site layout</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				<a href="https://www.linkedin.com/pub/nicholas-ottrando/94/690/902" target="_blank">LinkedIn</a><br>
+				<a href="https://github.com/NickOttrando" target="_blank">Github</a>
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<strong class="names">Even Holthe</strong><br>
+			<img src="img/even.jpg" class="img-circle img-responsive" alt="Even Holthe" height="140" width="140">
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Tech Lead, Back-end, Site functionality & layout</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				<a href="http://no.linkedin.com/in/evenholthe" target="_blank">LinkedIn</a><br>
+				<a href="http://github.com/evenh" target="_blank">Github</a>
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<strong class="names">Adrian Pardillo</strong><br>
+			<img src="img/adrian.jpg" class="img-circle img-responsive" alt="Adrian Pardillo" height="140" width="140">
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Front-end Manager</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				<a href="http://linkedin.com/pub/adrian-pardillo/7b/66/7a9" target="_blank">LinkedIn</a><br>
+				<a href="http://github.com/afpardillo" target="_blank">Github</a>
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<strong class="names">Ari Boldbaatar</strong><br>
+			Image goes here
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Front-end, JavaScript</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				Contact Links here
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<strong class="names">Kason Soohoo</strong><br>
+			<img src="img/anonymous.jpg" class="img-circle img-responsive" alt="Kason Soohoo" height="140" width="140">
+			<!--<i class="glyphicon glyphicon-user" style="font-size:140px;"></i>-->
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Front-end, Web Content Writer, Usability, Q.A.</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				-
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<strong class="names">Sha Yan</strong><br>
+			<img src="img/syan.jpg" class="img-circle img-responsive" alt="Sha Yan" height="140" width="140">
+		</td>
+		<td>
+			<strong>Role/Responsibilities</strong>
+			<p>Front-end & QA</p>
+		</td>
+		<td>
+			<strong>Contact Links</strong>
+			<br>
+			<p>
+				<a href="https://www.linkedin.com/profile/view?id=188854890&trk=spm_pic" target="_blank">LinkedIn</a><br>
+				<a href="https://github.com/shayan07" target="_blank">Github</a>
+			</p>
+		</td>
+	</tr>
+
+</table>
+
+<?php
+include('footer.php');
+?>

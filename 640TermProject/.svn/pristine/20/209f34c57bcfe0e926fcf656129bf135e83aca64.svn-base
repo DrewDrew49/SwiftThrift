@@ -1,0 +1,23 @@
+<?php
+include('header.php');
+?>
+<?php
+include('searchbar.php');
+?>
+
+
+
+
+<center><p><font size="4">
+	<b>To get started, type into the Search bar </b><br/>
+	- or - <br/>
+	<b>Select a Category: </b><br/>
+</font></p></center>
+
+<?php
+/* Categories moved to browse.php  */
+include('browse.php')
+?>
+<?php
+include('footer.php');
+?>

@@ -1,0 +1,26 @@
+<?php
+// Calls ItemHandler class to handle item publication status using the POST data from button
+include_once('backend/includes.php');
+
+if (isset($_POST['publish_id'])) {
+	$data = intval($_POST['publish_id']);
+	$status = ItemHandler::publishItemWithId($data);
+
+	// If successfully published
+	if($status){
+		Utils::emailListingApproved((int)$_POST['publish_id']);
+	}
+
+	return $status;
+} elseif (isset($_POST['deny_id'])) {
+	$data = intval($_POST['deny_id']);
+	return ItemHandler::unpublishItemWithId($data);
+} elseif (isset($_POST['delete_id'])) {
+	$data = intval($_POST['delete_id']);
+	return ItemHandler::deleteItemWithId($data);
+} else {
+
+	return 1;
+}
+
+?>

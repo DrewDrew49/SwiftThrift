@@ -1,0 +1,59 @@
+<!-- Categories -->
+<!-- Can we scale everything to make it smaller so they don't need to scroll down at all -->
+<div class="row">
+	<div class="category-box col-md-4">
+		<a href="category.php?id=6" data-toggle="popover" data-tigger="hover" data-placement="top" title="# of listings in Housing when they mouseover"><h3>Housing</h3>
+			<img class="category" src="http://i.imgur.com/kb0M3UD.png" alt="Housing">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=1"><h3>Automobiles</h3>
+			<img class="category" src="http://i.imgur.com/PkWL0rQ.png" alt="Automobiles">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=3"><h3>Electronics</h3>
+			<img class="category" src="http://i.imgur.com/vxAaZbH.png" alt="Electronics">
+		</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="category-box col-md-4">
+		<a href="category.php?id=8"><h3>Sports & Outdoors</h3>
+			<img class="category" src="http://i.imgur.com/OTXWWim.png" alt="Sports & Outdoors">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=2"><h3>Clothing & Accessories</h3>
+			<img class="category" src="http://i.imgur.com/eSelHP0.png" alt="Clothing & Accesories">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=4"><h3>Furniture</h3>
+			<img class="category" src="http://i.imgur.com/HCR2Mv6.png" alt="Furniture">
+		</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="category-box col-md-4">
+		<a href="category.php?id=5"><h3>Home & Garden</h3>
+			<img class="category" src="http://i.imgur.com/47ESQyX.png" alt="Home & Garden">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=7"><h3>Movies & Music</h3>
+			<img class="category" src="http://i.imgur.com/DD5INFC.png" alt="Movies & Music">
+		</a>
+	</div>
+	<div class="category-box col-md-4">
+		<a href="category.php?id=9"><h3>Miscellaneous</h3>
+			<img class="category" src="http://i.imgur.com/hDPzOML.png" alt="Miscellaneous">
+		</a>
+	</div>
+</div>
+
+
+
+	

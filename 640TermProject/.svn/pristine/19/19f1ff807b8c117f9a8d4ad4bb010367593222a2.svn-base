@@ -1,0 +1,122 @@
+<?php
+include('header.php');
+?>
+
+<style type="text/css" media="screen">
+	#sidebar{
+		margin-left: -30px;
+		border-right-width:1px;
+		border-right-style:solid;
+		border-right-color: dimgray;
+	}
+
+</style>
+
+
+<div class="container">
+
+	<!--Side Bar-->
+	<div class="row">
+		<div class="col-sm-2">
+			<ul id="sidebar" class="nav nav-stacked ">
+				<li><a href="#">Housing</a></li>
+				<li><a href="#">Automobiles</a></li>
+				<li><a href="#">Electronics</a></li>
+				<li><a href="#">Clothing & Accessories</a></li>
+				<li><a href="#">Furniture</a></li>
+				<li><a href="#">Home & Garden</a></li>
+				<li><a href="#">Movies & Music</a></li>
+				<li><a href="#">Miscellaneous</a></li>
+			</ul>
+		</div>
+
+
+		<!--Left Frame-->
+		<div class="col-sm-10" style="margin-left: -10px">
+			<!--search bar-->
+			<div class="row">
+				<?php
+				include('searchbar.php');
+				?>
+			</div>
+
+			<!--Main Content-->
+			<div class="row">
+
+				<?php
+
+				$id = (int) @$_GET['id'];
+
+				if(empty($id)){
+					$id = 999;
+				}
+
+				if(!empty($id) && is_numeric($id) && $id != 0){
+					$category = CategoryHandler::getCategoryWithId($id);
+				} else {
+					$category = null;
+				}
+				?>
+
+				<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.js"></script>
+
+				<p><font size="4"><a href="index.php">Back to Home</a></font></p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2><?php
+							if($category != null){
+								echo $category['title'];
+							} else {
+								echo "No category";
+							}
+							?></h2>
+						</div>
+
+						<div class="table-responsive">
+							<?php
+							$allItems = ItemHandler::getItemsForCategoryId($category['id']);
+
+							if(empty($allItems)){
+								echo '<p class="lead text-center">No listings in this category yet.</p>';
+							} else {
+								echo '<table class="table">
+
+								<tr>
+									<th>Image</th>
+									<th>Item Name</th>
+									<th>Quantity</th>
+									<th>Description</th>
+									<th>Seller</th>
+									<th>Price</th>
+									<th>Purchase</th>
+								</tr>';
+
+
+								foreach($allItems as $item){
+									echo "<tr>
+									<td><img width='140' src='http://sfsuswe.com/~s14g01/prototype/{$item->getImgPath()}' alt='Image' class='img-thumbnail'></td>
+									<td>{$item->getTitle()}</td>
+									<td>1</td>
+									<td>{$item->getDescription()}</td>
+									<td>Mr. Lazy Programmer</td>
+									<td>{$item->getPrice()}</td>
+									<td><a href='#'><button type='button' class='btn btn-primary'>Buy</button></a></td>
+								</tr>";
+							}
+
+							echo '</table>';
+						}
+
+						?>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

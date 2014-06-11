@@ -1,0 +1,64 @@
+<?php
+class Search {
+	static function getAllAvailableKeywords(){
+		// A new array to contain all our keywords
+		$keywords = array();
+
+		// Connect and run a query
+		$db = new Database();
+		$result = $db->query("SELECT keywords FROM items");
+
+		// Loop through all keywords, split and trim them
+		while($row = $result->fetch_assoc()){
+			$splitted = explode(',', $row['keywords']);
+			foreach($splitted as $kw){
+				$keywords[] = trim($kw);
+			}
+		}
+
+		// Return the unique keywords
+		return array_unique($keywords);
+	}
+
+	static function searchForItemsWithTitle($title){
+		// The array which should be returned
+		$items = array();
+
+		$db = new Database();
+		// Escape the input
+		$title = $db->real_escape_string($title);
+
+		// Run the query
+		$result = $db->query("SELECT id FROM items WHERE title LIKE '%$title%'");
+
+		// Fill the array
+		while($row = $result->fetch_assoc()){
+			$items[] = $row['id'];
+		}
+
+		// Return it
+		return $items;
+	}
+
+	static function searchForItemsWithKeyword($keyword){
+		// The array which should be returned
+		$items = array();
+
+		$db = new Database();
+		// Escape the input
+		$title = $db->real_escape_string($keyword);
+
+		// Run the query
+		$result = $db->query("SELECT id FROM items WHERE keywords LIKE '%$keyword%'");
+
+		// Fill the array
+		while($row = $result->fetch_assoc()){
+			$items[] = $row['id'];
+		}
+
+		// Return it
+		return $items;
+	}
+}
+
+?>

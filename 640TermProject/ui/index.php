@@ -1,0 +1,19 @@
+<?php
+include('header.php');
+?>
+<?php
+include('searchbar.php');
+?>
+
+<p class="text-center get-started">
+	<strong>To get started, type into the Search bar </strong><br/>
+	&mdash; or &mdash; <br/>
+	<strong>Select a Category: </strong><br/>
+</p>
+
+<?php
+include('browse.php')
+?>
+<?php
+include('footer.php');
+?>

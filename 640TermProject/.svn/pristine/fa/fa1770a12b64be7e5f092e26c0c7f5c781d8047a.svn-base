@@ -1,0 +1,46 @@
+<!--Search Bar -->
+<?php
+if(!empty($_POST)){
+	$queryInput = $_POST['query'];
+	$selectedCategory = $_POST['categoryID'];
+}
+?>
+<div id="search-bar">
+	<form method="post" action="results.php">
+		<div class="input-group">
+			<!-- Categories -->
+			<div class="input-group-btn">
+				<?php
+				if(empty($selectedCategory) || !is_numeric($selectedCategory)){
+					echo '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">All categories <span class="caret"></span></button>';
+				} else {
+					$cat = CategoryHandler::getCategoryWithId((int)$selectedCategory);
+					echo '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'; echo htmlspecialchars($cat['title']); echo ' <span class="caret"></span></button>';
+				}
+				?>
+				<ul class="dropdown-menu" id="category-selector">
+					<?php
+					// Loop through all the categories and output it in the dropdown
+					$categories = CategoryHandler::getAllCategories();
+					echo "<li><a data-id='all' href='#'>All categories</a></li>\n";
+					foreach($categories as $cat){
+					// Make sure to encode special characters to HTML entities
+						$cat['title'] = htmlspecialchars($cat['title']);
+						echo "<li><a data-id='{$cat['id']}' href='#'>{$cat['title']}</a></li>\n";
+					}
+					?>
+				</ul>
+			</div>
+			<!-- Hidden input for category -->
+			<input type="hidden" name="categoryID" value="all">
+			<!-- Query input -->
+			<input type="text" class="form-control" placeholder="What are you looking for today?" <?php if(!empty($queryInput)){ echo "value='$queryInput' ";}?>name="query">
+			<!-- Search -->
+			<span class="input-group-btn">
+				<button class="btn btn-primary" type="submit">Search</button>
+			</span>
+		</div>
+	</form>
+	<script src="js/search.js"></script>
+</div>
+<!--End search bar-->

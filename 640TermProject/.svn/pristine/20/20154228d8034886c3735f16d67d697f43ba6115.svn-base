@@ -1,0 +1,62 @@
+<form role="form" id="ccInfo">
+	<!-- Cardholder -->
+	<div class="form-group">
+		<label for="cardholder" class="control-label">Name on Card</label>
+		<input type="email" class="form-control" id="cardholder" placeholder="Cardholder" value="Joe Schmuck" disabled>
+	</div>
+	<!-- CC -->
+	<div class="form-group">
+		<label for="cardholder" class="control-label">Credit Card Number</label>
+		<div class="input-group">
+			<span class="input-group-addon"><img id="visaCard" src="img/visa.png" alt="VISA card" /></span>
+			<input type="text" disabled class="form-control" id="cc" placeholder="Credit Card" value="4106 &#8226;&#8226;&#8226;&#8226; &#8226;&#8226;&#8226;&#8226; 1234">
+		</div>
+	</div>
+	<!-- CVC -->
+	<div class="form-group">
+		<label for="cvc" class="control-label">Security Code (CVC)</label>
+		<input type="number" class="form-control" id="cvc" placeholder="Card Verification Code" value="123" disabled>
+	</div>
+	<!-- Expiry -->
+	<div class="form-group">
+		<!-- Month -->
+		<div class="dt col-sm-8">
+			<label for="month" class="control-label">Month</label>
+			<select id="month" class="form-control" disabled>
+				<option disabled>Month</option>
+				<option>January</option>
+				<option>February</option>
+				<option>March</option>
+				<option>April</option>
+				<option selected>May</option>
+				<option>June</option>
+				<option>July</option>
+				<option>August</option>
+				<option>September</option>
+				<option>October</option>
+				<option>November</option>
+				<option>December</option>
+			</select>
+		</div>
+		<!-- Year -->
+		<div class="dt col-sm-4 pull-right">
+			<label for="year" class="control-label">Year</label>
+			<select id="year" class="form-control" disabled>
+				<option disabled>Year</option>
+				<option>2014</option>
+				<option>2015</option>
+				<option>2016</option>
+				<option>2017</option>
+				<option>2018</option>
+			</select>
+		</div>
+	</div>
+	<!-- Amount Due -->
+	<div class="form-group">
+		<label for="amt-due" class="control-label">Amount Due</label>
+		<div class="input-group">
+			<span class="input-group-addon">$</span>
+			<span id="amt-due" class="form-control">0.00</span>
+		</div>
+	</div>
+</form>

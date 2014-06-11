@@ -1,0 +1,70 @@
+<?php
+include('header.php');
+?>
+
+<p><font size="4"><a href="detailed.php">Back to Detailed View</a></font></p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2>Contact Seller</h2>
+	</div>
+
+	<div class="panel-body">
+
+		<div class="alert alert-warning"><font size="3">
+			<b>Notice:</b> This site does not handle any transactions. All transactions are to be negotiated between the buyer and seller.
+		</font></div>
+
+		<!-- Instructions for the user -->
+		<p><font size="3"><b>
+			Use the form below to contact the seller with your questions or interest to buy.
+		</b></font></p>
+		<?php
+		if (!isset($_POST["submit"])) {
+		?>
+		<form role="form">
+			<!-- best to make this a form? -->
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Item: </label>
+				<div class="col-sm-10">
+					<input type="text" name="itemName" placeholder="$item.name"> <!-- $item.name -->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Seller: </label>
+				<div class="col-sm-10">
+					<input type="text" name="sellerName" placeholder="$seller.name"> <!-- $seller.name -->
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Message: </label>
+				<div class="col-sm-10">
+					<textarea rows="4" cols="50" name="message"></textarea>
+					<p>(#### characters remain)</p> <!-- insert character limit -->
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-offset-2 col-sm-8">
+					<button type="submit" class="btn btn-default pull-left">Clear Form</button>
+					<button type="submit" name="submit" class="btn btn-primary pull-right">Send Message</button>
+				</div>
+			</div>
+		</form>
+		<?php
+	} else {
+		$from = $_POST["sellerName"];
+		$subject = $_POST["itemName"];
+		$message = $_POST["message"];
+		$message = wordwrap($message, 70);
+		mail("aboldb@sfsuswe.com", $subject, $message, "From: $from\n");
+		echo "Email sent";
+	} ?>
+	</div>
+</div>
+
+<?php
+include('footer.php');
+?>

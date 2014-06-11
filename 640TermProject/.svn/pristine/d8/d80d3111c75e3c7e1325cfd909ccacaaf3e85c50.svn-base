@@ -1,0 +1,20 @@
+<?php
+// Calls ItemHandler class to handle item publication status using the POST data from button
+include_once('backend/Database.php');
+include_once('backend/ItemHandler.php');
+
+if (isset($_POST['publish_id'])) {
+	$data = intval($_POST['publish_id']);
+	return ItemHandler::publishItemWithId($data);
+} elseif (isset($_POST['deny_id'])) {
+	$data = intval($_POST['deny_id']);
+	return ItemHandler::unpublishItemWithId($data);
+} elseif (isset($_POST['delete_id'])) {
+	$data = intval($_POST['delete_id']);
+	return ItemHandler::deleteItemWithId($data);
+} else {
+
+	return 1;
+}
+
+?>
